@@ -119,8 +119,39 @@ int buildEncodingTree(int nextFree) {
 void generateCodes(int root, string codes[]) {
     // TODO:
     // Use stack<pair<int, string>> to simulate DFS traversal.
-    // Left edge adds '0', right edge adds '1'.
+    //[Stack] goes through Huffman Tree iteratively
+    if (root < 0) return;
     // Record code when a leaf node is reached.
+    if (leftArr[root] == -1 && rightArr[root] == -1) {
+        int letter = charArr[root] - 'a';
+        if (letter >= 0 && letter < 26) codes[letter] = "0";
+        return;
+    }
+
+    stack<pair<int, string>> st;
+    st.push({root, ""});
+
+    while (!st.empty()) {
+        int node = st.top().first;
+        string code = st.top().second;
+        st.pop();
+
+        bool isLeaf = (leftArr[node] == -1 && rightArr[node] == -1);
+        if (isLeaf) {
+            int letter = charArr[node] - 'a';
+            if (letter >= 0 && letter < 26)
+                codes[letter] = code.empty() ? "0" : code;
+            continue;
+        }
+        // Left edge adds '0', right edge adds '1'.
+        if (rightArr[node] != -1) {
+            st.push({rightArr[node], code + "1"});
+        }
+        if (leftArr[node] != -1) {
+            st.push({leftArr[node], code + "0"});
+        }
+
+    }
 }
 
 // Step 5: Print table and encoded message
