@@ -35,7 +35,6 @@ struct MinHeap {
 
         return minIndex;
     }
-
     void upheap(int pos, int weightArr[]) {
         // TODO: swap child upward while smaller than parent
         //[Helper function] moves the node upward until order property is restored

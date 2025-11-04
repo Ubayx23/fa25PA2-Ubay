@@ -161,7 +161,6 @@ void encodeMessage(const string& filename, string codes[]) {
         if (!codes[i].empty())
             cout << char('a' + i) << " : " << codes[i] << "\n";
     }
-
     cout << "\nEncoded message:\n";
 
     ifstream file(filename);
